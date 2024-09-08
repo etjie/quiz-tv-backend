@@ -1,6 +1,18 @@
+import Cors from 'cors';
+import initMiddleware from '../../utils/init-middleware';
 import QuizResult from "../../../../models/QuizResult";
 
+const cors = initMiddleware(
+  Cors({
+    methods: ['GET', 'POST', 'OPTIONS'],
+    origin: '*',
+  })
+);
+
+
 export default async function handler(req, res) {
+  await cors(req, res);
+
   const { id } = req.query;
 
   if (req.method === "GET") {

@@ -1,6 +1,16 @@
+import Cors from 'cors';
+import initMiddleware from '../../utils/init-middleware';
 import User from "../../../../models/User";
 
+const cors = initMiddleware(
+  Cors({
+    methods: ['GET', 'POST', 'OPTIONS'],
+    origin: '*',
+  })
+);
+
 export default async function handler(req, res) {
+  await cors(req, res);
   const { id } = req.query;
 
   if (req.method === "GET") {

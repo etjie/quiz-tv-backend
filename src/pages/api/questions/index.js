@@ -1,6 +1,17 @@
+import Cors from 'cors';
+import initMiddleware from '../../utils/init-middleware';
 import Question from "../../../../models/Question";
 
+const cors = initMiddleware(
+  Cors({
+    methods: ['GET', 'POST', 'OPTIONS'],
+    origin: '*',
+  })
+);
+
 export default async function handler(req, res) {
+  await cors(req, res);
+
   if (req.method === "GET") {
     // Fetch all questions
     try {
