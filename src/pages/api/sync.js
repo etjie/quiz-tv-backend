@@ -1,7 +1,7 @@
 import sequelize from "../../db/sequelize";
-import User from "../../models/User";
-import Question from "../../models/Question";
-import QuizResult from "../../models/QuizResult";
+// import User from "../../../models/User";
+// import Question from "../../../models/Question";
+// import QuizResult from "../../../models/QuizResult";
 
 export default async function handler(req, res) {
   try {
