@@ -93,32 +93,43 @@ export default function Results() {
       <div className="p-8 bg-gray-100 min-h-screen">
         <h2 className="text-3xl mb-4">Hasil Quiz</h2>
 
-        <div className="flex mb-6 space-x-4">
-          <input
-            type="text"
-            placeholder="Cari berdasarkan email atau nomor telepon"
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-1/5 shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          />
-          <input
-            type="date"
-            value={startDate}
-            onChange={(e) => setStartDate(e.target.value)}
-            className="shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          />
-          <input
-            type="date"
-            value={endDate}
-            onChange={(e) => setEndDate(e.target.value)}
-            className="shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          />
-          <button
-            onClick={resetDates}
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-          >
-            Reset
-          </button>
+        <div className="flex flex-wrap mb-6 space-y-4 md:space-y-0 md:space-x-4">
+          <div className="w-full md:w-1/5">
+            <input
+              type="text"
+              placeholder="Cari berdasarkan email atau nomor telepon"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="w-full shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            />
+          </div>
+
+          <div className="w-full md:w-auto">
+            <input
+              type="date"
+              value={startDate}
+              onChange={(e) => setStartDate(e.target.value)}
+              className="w-full shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            />
+          </div>
+
+          <div className="w-full md:w-auto">
+            <input
+              type="date"
+              value={endDate}
+              onChange={(e) => setEndDate(e.target.value)}
+              className="w-full shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            />
+          </div>
+
+          <div className="w-full md:w-auto">
+            <button
+              onClick={resetDates}
+              className="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+            >
+              Reset
+            </button>
+          </div>
         </div>
 
         <table className="min-w-full bg-white rounded-lg shadow-md overflow-hidden">
