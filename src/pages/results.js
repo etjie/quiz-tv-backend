@@ -91,7 +91,7 @@ export default function Results() {
     <div className="min-h-screen bg-gray-100">
       <Header />
       <div className="p-8 bg-gray-100 min-h-screen">
-        <h2 className="text-3xl mb-4">Hasil Quiz</h2>
+        <h2 className="text-3xl mb-4 text-gray-600">Hasil Quiz</h2>
 
         <div className="flex flex-wrap mb-6 space-y-4 md:space-y-0 md:space-x-4">
           <div className="w-full md:w-1/5">
@@ -145,7 +145,7 @@ export default function Results() {
           </thead>
           <tbody>
             {filteredResults.map((result, index) => (
-              <tr key={result.id} className="border-b">
+              <tr key={result.id} className="border-b text-gray-600">
                 <td className="p-4 text-center">{index + 1}</td>
                 <td className="p-4">{result.User.name}</td>
                 <td className="p-4">{result.User.email}</td>
