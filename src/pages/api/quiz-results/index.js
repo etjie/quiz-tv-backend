@@ -3,12 +3,21 @@ import User from "../../../../models/User";
 
 export default async function handler(req, res) {
   if (req.method === "GET") {
-    // Fetch all quiz results
+    const { score } = req.query;
+
     try {
-      const results = await QuizResult.findAll({
+      // Define the base query
+      let queryOptions = {
         include: User,
-        order: [["createdAt", "DESC"]], // Sorting by createdAt in descending order
-      });
+        order: [["createdAt", "DESC"]], // Default sort by createdAt
+      };
+
+      // If score is provided, add it to the where clause
+      if (score) {
+        queryOptions.where = { score: score };
+      }
+
+      const results = await QuizResult.findAll(queryOptions);
       res.status(200).json(results);
     } catch (error) {
       res.status(500).json({ error: "Failed to fetch quiz results" });

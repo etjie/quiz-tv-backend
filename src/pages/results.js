@@ -8,6 +8,7 @@ export default function Results() {
   const [results, setResults] = useState([]);
   const [filteredResults, setFilteredResults] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
+  const [selectedScore, setSelectedScore] = useState("");
 
   // Get today's date for default
   const today = new Date().toISOString().split("T")[0];
@@ -50,18 +51,23 @@ export default function Results() {
       });
     }
 
+    if (selectedScore !== "") {
+      filtered = filtered.filter((result) => result.score == selectedScore);
+    }
+
     filtered.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
     setFilteredResults(filtered);
   };
 
   useEffect(() => {
     filterResults();
-  }, [searchTerm, startDate, endDate]);
+  }, [searchTerm, startDate, endDate, selectedScore]);
 
   const resetDates = () => {
     // Reset dates back to today's date
     setStartDate(today);
     setEndDate(today);
+    setSelectedScore("");
     setSearchTerm(""); // Optional: Reset search term as well
   };
 
@@ -123,6 +129,22 @@ export default function Results() {
           </div>
 
           <div className="w-full md:w-auto">
+            <select
+              value={selectedScore}
+              onChange={(e) => setSelectedScore(e.target.value)}
+              className="w-full shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            >
+              <option value="">Pilih Skor</option>
+              <option value="100">100</option>
+              <option value="80">80</option>
+              <option value="60">60</option>
+              <option value="40">40</option>
+              <option value="20">20</option>
+              <option value="0">0</option>
+            </select>
+          </div>
+
+          <div className="w-full md:w-auto">
             <button
               onClick={resetDates}
               className="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
@@ -132,32 +154,34 @@ export default function Results() {
           </div>
         </div>
 
-        <table className="min-w-full bg-white rounded-lg shadow-md overflow-hidden">
-          <thead>
-            <tr className="bg-gray-200 text-gray-600 text-left">
-              <th className="p-4 w-4">No.</th>
-              <th className="p-4">Nama</th>
-              <th className="p-4">Email</th>
-              <th className="p-4">Nomor Telepon</th>
-              <th className="p-4">Skor</th>
-              <th className="p-4">Tanggal</th>
-            </tr>
-          </thead>
-          <tbody>
-            {filteredResults.map((result, index) => (
-              <tr key={result.id} className="border-b text-gray-600">
-                <td className="p-4 text-center">{index + 1}</td>
-                <td className="p-4">{result.User.name}</td>
-                <td className="p-4">{result.User.email}</td>
-                <td className="p-4">{result.User.phoneNumber}</td>
-                <td className="p-4">{result.score}</td>
-                <td className="p-4">
-                  {format(new Date(result.createdAt), "yyyy-MM-dd HH:mm:ss")}
-                </td>
+        <div className="overflow-x-auto">
+          <table className="min-w-full bg-white rounded-lg shadow-md overflow-hidden">
+            <thead>
+              <tr className="bg-gray-200 text-gray-600 text-left">
+                <th className="p-4 w-4">No.</th>
+                <th className="p-4">Nama</th>
+                <th className="p-4">Email</th>
+                <th className="p-4">Nomor Telepon</th>
+                <th className="p-4">Skor</th>
+                <th className="p-4">Tanggal</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {filteredResults.map((result, index) => (
+                <tr key={result.id} className="border-b text-gray-600">
+                  <td className="p-4 text-center">{index + 1}</td>
+                  <td className="p-4">{result.User.name}</td>
+                  <td className="p-4">{result.User.email}</td>
+                  <td className="p-4">{result.User.phoneNumber}</td>
+                  <td className="p-4">{result.score}</td>
+                  <td className="p-4">
+                    {format(new Date(result.createdAt), "yyyy-MM-dd HH:mm:ss")}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
 
         <button
           onClick={exportToExcel}
