@@ -1,11 +1,11 @@
-import Cors from 'cors';
-import initMiddleware from '../../utils/init-middleware';
+import Cors from "cors";
+import initMiddleware from "../../../utils/middleware";
 import Question from "../../../../models/Question";
 
 const cors = initMiddleware(
   Cors({
-    methods: ['GET', 'POST', 'OPTIONS'],
-    origin: '*',
+    methods: ["GET", "POST", "OPTIONS"],
+    origin: "*",
   })
 );
 

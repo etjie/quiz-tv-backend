@@ -1,11 +1,11 @@
-import Cors from 'cors';
-import initMiddleware from '../../utils/init-middleware';
+import Cors from "cors";
+import initMiddleware from "../../../utils/middleware";
 import Question from "../../../../models/Question";
 
 const cors = initMiddleware(
   Cors({
-    methods: ['GET', 'POST', 'OPTIONS'],
-    origin: '*',
+    methods: ["GET", "POST", "OPTIONS"],
+    origin: "*",
   })
 );
 
@@ -17,7 +17,7 @@ export default async function handler(req, res) {
       // Fetch all questions
       const questions = await Question.findAll();
 
-      console.log(JSON.stringify(questions, null, 2))
+      console.log(JSON.stringify(questions, null, 2));
 
       // Shuffle the questions to get them in random order
       const shuffledQuestions = questions.sort(() => 0.5 - Math.random());
