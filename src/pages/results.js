@@ -97,7 +97,9 @@ export default function Results() {
     <div className="min-h-screen bg-gray-100">
       <Header />
       <div className="p-8 bg-gray-100 min-h-screen">
-        <h2 className="text-3xl mb-4 text-gray-600">Hasil Quiz</h2>
+        <h2 className="text-3xl mb-4 text-gray-600">
+          Hasil Quiz Seberapa Kenal
+        </h2>
 
         <div className="flex flex-wrap mb-6 space-y-4 md:space-y-0 md:space-x-4">
           <div className="w-full md:w-1/5">

@@ -12,8 +12,6 @@ export default function Header() {
     <header className="bg-blue-600 text-white p-4 flex justify-between items-center">
       {/* Left Side: Logo */}
       <div className="flex items-center">
-        <img src="/acc-logo.png" alt="Logo" className="h-8 mr-2" />{" "}
-        {/* Add your logo here */}
         <span className="text-xl font-semibold">Dashboard</span>
       </div>
 
