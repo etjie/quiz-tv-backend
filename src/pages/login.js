@@ -1,15 +1,14 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
+import axios from 'axios';
 
 export default function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
-
-  const validUsername = "admin";
-  const validPassword = "password123";
 
   useEffect(() => {
     // If already logged in, redirect to results
@@ -18,13 +17,27 @@ export default function Login() {
     }
   }, [router]);
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
-    if (username === validUsername && password === validPassword) {
-      localStorage.setItem("isLoggedIn", "true"); // Save login status
-      router.push("/results"); // Redirect to results
-    } else {
-      setError("Invalid username or password");
+    setLoading(true); // Start loading
+
+    try {
+      const response = await axios.post("/api/admin", {
+        action: "login", // Specify the action for the API
+        username,
+        password,
+      });
+
+      if (response.status === 200) {
+        localStorage.setItem("isLoggedIn", "true"); // Save login status
+        localStorage.setItem("username", username);
+        router.push("/results"); // Redirect to results
+      }
+    } catch (error) {
+      // Handle the error response
+      setError(error.response?.data?.error || "Login failed");
+    } finally {
+      setLoading(false); // Stop loading
     }
   };
 
@@ -59,9 +72,12 @@ export default function Login() {
           {error && <p className="text-red-500 text-xs italic">{error}</p>}
           <button
             type="submit"
-            className="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+            disabled={loading}
+            className={`w-full ${
+              loading ? "bg-gray-400" : "bg-blue-500 hover:bg-blue-700"
+            } text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline`}
           >
-            Login
+            {loading ? "Logging in..." : "Login"}
           </button>
         </form>
       </div>

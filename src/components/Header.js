@@ -5,7 +5,12 @@ export default function Header() {
 
   const handleLogout = () => {
     localStorage.removeItem("isLoggedIn"); // Remove login status
+    localStorage.removeItem("username");
     router.push("/login"); // Redirect to login page
+  };
+
+  const handleChangePassword = () => {
+    router.push("/change-password"); // Redirect to login page
   };
 
   return (
@@ -16,12 +21,20 @@ export default function Header() {
       </div>
 
       {/* Right Side: Logout Button */}
-      <button
-        onClick={handleLogout}
-        className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
-      >
-        Logout
-      </button>
+      <div>
+        <button
+          onClick={handleChangePassword}
+          className="bg-gray-200 hover:bg-gray-100 text-gray-800 font-bold py-2 px-4 mr-4 rounded"
+        >
+          Ubah Password
+        </button>
+        <button
+          onClick={handleLogout}
+          className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+        >
+          Logout
+        </button>
+      </div>
     </header>
   );
 }
